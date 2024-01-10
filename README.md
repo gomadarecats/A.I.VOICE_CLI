@@ -2,8 +2,8 @@
 CLIからA.I.VOICE Editorに文字を送る感じのスクリプト
 ### Usage
 ```
-<path>\A.I.VOICE_CLI.ps1 -vpresetlist
 <path>\A.I.VOICE_CLI.ps1 exampletext
+<path>\A.I.VOICE_CLI.ps1 -vpresetlist
 <path>\A.I.VOICE_CLI.ps1 -text exampletext -vpreset <VoicePresetName>
 ```
 ```
