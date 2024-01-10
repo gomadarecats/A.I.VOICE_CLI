@@ -17,6 +17,7 @@ OPTIONS
 - $Path に <A.I.VOICE Editor インストールディレクトリ>\AI.Talk.Editor.Api.dll を入れてください
   - おそらくデフォルトであろう `C:\Program Files\AI\AIVoice\AIVoiceEditor\AI.Talk.Editor.Api.dll` を入れています
 
-ps2exeでps1をexeにしたもをリリースしていますが、A.I.VOICE Editorのインストールディレクトリが`C:\Program Files\AI\AIVoice\AIVoiceEditor` 以外だと動きません
+ps2exeでps1をexeにしたもをリリースしていますが、A.I.VOICE Editorのインストールディレクトリが\
+`C:\Program Files\AI\AIVoice\AIVoiceEditor` 以外だと動きません
 
 アイコンはBing Image Creatorさんに作っていただきました
