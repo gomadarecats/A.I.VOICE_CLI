@@ -1,3 +1,14 @@
+Param(
+  [string]$text,
+  [switch]$vpresetlist,
+  [string]$vpreset
+)
+
+if (($vpresetlist -eq $false) -and ([string]::IsNullOrEmpty($text))) {
+  echo "次のパラメーターに値を指定してください:"
+  $text = Read-Host "text"
+}
+
 $Path = "C:\Program Files\AI\AIVoice\AIVoiceEditor\AI.Talk.Editor.Api.dll"
 Add-Type -Path $Path
 
@@ -10,7 +21,7 @@ if ($AvailableHosts.length -gt 0) {
   exit 1
 }
 
-function speech($text) {
+function speech() {
   try {
     if ($ttsControl.IsInitialized -eq $false) {
       $ttsControl.Initialize($CurrentHost)
@@ -27,11 +38,27 @@ function speech($text) {
     if ($ttsControl.Status -eq "NotConnected") {
       $ttsControl.Connect()
     }
-    while ( $ttsControl.Status -eq "Busy" ) {
+  }
+  catch {
+    Write-Host $_.Exception.Message
+    exit 1
+  }
+  if ($vpresetlist -eq $true) {
+    echo $ttsControl.VoicePresetNames
+    exit 0
+  }
+  try {  
+    while ($ttsControl.Status -eq "Busy") {
       sleep 1
     }
+    $vpreset_before = $ttsControl.CurrentVoicePresetName
+    $ttsControl.CurrentVoicePresetName = "$vpreset"
     $ttsControl.Text = $text
     $ttsControl.Play()
+    while ($ttsControl.Status -eq "Busy") {
+      sleep 1
+    }
+    $ttsControl.CurrentVoicePresetName = "$vpreset_before"
   }
   catch {
     Write-Host $_.Exception.Message
@@ -39,5 +66,4 @@ function speech($text) {
   }
 }
 
-speech($Args[0])
-
+speech
