@@ -8,9 +8,10 @@ CLIからA.I.VOICE Editorに文字を送る感じのスクリプト
 ```
 ```
 OPTIONS
--text[string]         : 必須(-textは省略可能), 生成するテキストを入力
--vpresetlist[boolean] : 省略可, ボイスプリセットの一覧を表示
--vpreset[string]      : 省略可, ボイスプリセットを設定
+-text[string]                 : 必須(-textは省略可能), 生成するテキストを入力
+-vpresetlist[SwitchParameter] : 省略可, ボイスプリセットの一覧を表示
+-vpreset[string]              : 省略可, ボイスプリセットを設定
+-help[SwitchParameter]        : 省略可, ヘルプを表示
 ```
 
 - A.I.VOICE Editorが起動していない場合は自動で起動します。
@@ -20,4 +21,4 @@ OPTIONS
 ps2exeでps1をexeにしたもをリリースしていますが、A.I.VOICE Editorのインストールディレクトリが\
 `C:\Program Files\AI\AIVoice\AIVoiceEditor` 以外だと動きません
 
-アイコンはBing Image Creatorさんに作っていただきました
+アイコンはBing Image Creatorさんに生成いただきました
