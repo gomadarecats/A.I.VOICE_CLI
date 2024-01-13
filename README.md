@@ -1,17 +1,48 @@
 # A.I.VOICE_CLI
-CLIからA.I.VOICE Editorに文字を送る感じのスクリプト
+概要
+
+    WindowsのCLI(PowerShell)からA.I.VOICEでテキストを読み上げるスクリプトです。
+
+構文
+
+    A.I.VOICE_CLI.ps1 [[-text] <String>] [-vpresetlist] [[-vpreset] <String>] [-help] [<CommonParameters>]
+
+説明
+
+    A.I.VOICE Editor API を利用してText, VoicePresetNames, CurrentVoicePresetName を取得・設定します。
+    Text: テキスト形式の入力テキストを取得または設定します。
+    VoicePresetNames: 登録されているボイスプリセット名を取得します。
+    CurrentVoicePresetName: 現在のボイスプリセット名を取得または設定します。
+    スクリプト内の$PathをAI.Talk.Editor.Api.dllの適切なパスに指定してください。
+
+
+パラメーター
+
+    -text <String>
+        読み上げテキストの設定を設定します。
+        原則必須のパラメータです。パラメータ指定文字列(-text)は省略可能です。
+
+    -vpresetlist [<SwitchParameter>]
+        ボイスプリセットのリストを取得します。
+        省略可能なパラメータです。このオプションが有効な場合は text パラメータの処理が行われません。
+
+    -vpreset <String>
+        ボイスプリセットを設定します。
+        省略可能なパラメータです。省略した場合は現在のボイスプリセットを利用します。
+
+    -help [<SwitchParameter>]
+        ヘルプを表示します。
 ### Usage
 ```
 <path>\A.I.VOICE_CLI.ps1 exampletext
+    現在のボイスプリセットで"exampletext"を読み上げます。
+
 <path>\A.I.VOICE_CLI.ps1 -vpresetlist
+    ボイスプリセットの一覧を出力します。
+
 <path>\A.I.VOICE_CLI.ps1 -text exampletext -vpreset <VoicePresetName>
-```
-```
-OPTIONS
--text[string]                 : 必須(-textは省略可能), 生成するテキストを入力
--vpresetlist[SwitchParameter] : 省略可, ボイスプリセットの一覧を表示
--vpreset[string]              : 省略可, ボイスプリセットを設定
--help[SwitchParameter]        : 省略可, ヘルプを表示
+    指定したボイスプリセットで"exampletext"を読み上げます。
+    読み上げ後は元のボイスプリセットに戻します。
 ```
 
 - A.I.VOICE Editorが起動していない場合は自動で起動します。
