@@ -1,47 +1,3 @@
-<#
-    .SYNOPSIS
-        WindowsのCLI(PowerShell)からA.I.VOICEでテキストを読み上げるスクリプトです。
-
-    .DESCRIPTION
-        A.I.VOICE Editor API を利用してText, VoicePresetNames, CurrentVoicePresetName を取得・設定します。
-        Text: テキスト形式の入力テキストを取得または設定します。
-        VoicePresetNames: 登録されているボイスプリセット名を取得します。
-        CurrentVoicePresetName: 現在のボイスプリセット名を取得または設定します。
-        スクリプト内の$PathをAI.Talk.Editor.Api.dllの適切なパスに指定してください。
-
-    .PARAMETER text
-        読み上げテキストの設定を設定します。
-        原則必須のパラメータです。パラメータ指定文字列(-text)は省略可能です。
-
-    .PARAMETER vpresetlist
-        ボイスプリセットのリストを取得します。
-        省略可能なパラメータです。このオプションが有効な場合は text パラメータの処理が行われません。
-
-    .PARAMETER vpreset
-        ボイスプリセットを設定します。
-        省略可能なパラメータです。省略した場合は現在のボイスプリセットを利用します。
-
-    .PARAMETER help
-        ヘルプを表示します。
-
-    .EXAMPLE
-        A.I.VOICE_CLI.ps1 exampletext
-        現在のボイスプリセットで"exampletext"を読み上げます。
-
-    .EXAMPLE
-        A.I.VOICE_CLI.ps1 -vpresetlist
-        ボイスプリセットの一覧を出力します。
- 
-    .EXAMPLE
-        A.I.VOICE_CLI.ps1 -text exampletext -vpreset VoicePresetName
-        指定したボイスプリセットで"exampletext"を読み上げます。
-        読み上げ後は元のボイスプリセットに戻します。
-
-    .LINK
-        https://github.com/gomadarecats/A.I.VOICE_CLI
-        https://aivoice.jp/manual/editor/API/html/d7d48194-41c9-aeda-7971-a604090d36c9.htm
-#>
-
 Param(
   [string]$text,
   [switch]$vpresetlist,
@@ -50,7 +6,7 @@ Param(
 )
 
 if ($help -eq $true) {
-  Get-Help $PSCommandPath -Detailed
+  Start-Process -Filepath Powershell.exe -ArgumentList '-command &{echo "A.I.VOICE_CLI.exe` [[-text]` `<String`>]` [-vpresetlist]` [[-vpreset]` `<String`>]`n -text 読み上げテキストの設定を設定します。 原則必須のパラメータです。パラメータ指定文字列`(-text`)は省略可能です。`n -vpresetlist ボイスプリセットのリストを取得します。 省略可能なパラメータです。このオプションが有効な場合は` text` パラメータの処理が行われません。`n -vpreset ボイスプリセットを設定します。 省略可能なパラメータです。省略した場合は現在のボイスプリセットを利用します。`n example: A.I.VOICE_CLI.exe` exampletext →` 現在のボイスプリセットで`"exampletext`"を読み上げます。`n A.I.VOICE_CLI.exe` -vpresetlist →` ボイスプリセットの一覧を出力します。`n A.I.VOICE_CLI.exe` -text` exampletext` -vpreset` `<VoicePresetName`> →` 指定したボイスプリセットで`"exampletext`"を読み上げます。 →` 読み上げ後は元のボイスプリセットに戻します。`n "; pause}'
   exit 0
 }
 
@@ -94,7 +50,8 @@ function speech() {
     exit 1
   }
   if ($vpresetlist -eq $true) {
-    echo $ttsControl.VoicePresetNames
+    $psarg = '-command &{echo ' + $ttsControl.VoicePresetNames + '`n; pause}'
+    Start-Process -Filepath Powershell.exe -ArgumentList $psarg
     exit 0
   }
   try {  
